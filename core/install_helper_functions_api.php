@@ -663,8 +663,10 @@ function install_check_filters_serialization() {
 
 		$t_filter = unserialize( $t_setting_arr[1] );
 
-		if( $t_filter === false ) {
-			return 1; # Fatal: invalid data found in tokens table
+		if ($t_filter === false) {
+			$t_filter = json_decode( $t_setting_arr[1], true );
+			if ($t_filter === NULL)
+				return 1; # Fatal: invalid data found in tokens table
 		}
 		$t_filter['_version'] = 'v9'; // bump version
 
